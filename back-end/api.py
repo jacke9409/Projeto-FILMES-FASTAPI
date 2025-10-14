@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-import funcao
+import funcoes
 
-#Roda fastapi =  
+#Roda fastapi =  python -m uvicorn api:app --reload
 
 #Testar as rotas no fastapi
 # /docs > documentação Swagger
@@ -23,7 +23,7 @@ def home():
 
 @app.get("/filmes")
 def catalogo():
-    filmes = funcao.listar_movies()
+    filmes = funcoes.listar_movies()
     lista = []
     for filme in filmes:
         lista.append({
@@ -35,9 +35,9 @@ def catalogo():
         })
     return {"filmes": lista}
 
-@app.post("/")
-def adicionar_filme(titulo:str, genero:str, ano:str, nota: float):
-    funcao.criar_filme(titulo, genero, ano, avaliacao)
+@app.post("/filmes")
+def adicionar_filme(titulo:str, genero:str, ano:str, avaliacao: float):
+    funcoes.criar_filme(titulo, genero, ano, avaliacao)
     return {"Mensagem": "Filme adicionado com sucesso"}
 
 

@@ -14,7 +14,7 @@ st.set_page_config(page_title="Gerenciador de Filmes", page_icon="🎬")
 st.title("🍿 Gerenciador de filmes")
 
 #Menu lateral sidebar
-menu = st.sidebar.radio("Navegação", ["Catalogo"])
+menu = st.sidebar.radio("Navegação", ["Catalogo", "Adicionar Filme"])
 
 if menu == "Catalogo":
     st.subheader("Todos os filmes 🎥")
@@ -23,23 +23,24 @@ if menu == "Catalogo":
         filmes = response.json().get("filmes", [])
         if filmes:
             for filme in filmes:
-                st.write(f" **{filme['titulo']}** ({filmes['ano']}) - {filme['genero']} - ⭐")
-            else:
-                st.info("Nenhum filme cadastrado")
+                st.write(f" **{filme['titulo']}** ({filme['ano']}) - {filme['genero']} - ⭐ {filme['avaliacao']}")
         else:
-            st.error("Erro ao conectar com a API") 
+            st.info("Nenhum filme cadastrado")
+    else:
+        st.error("Erro ao conectar com a API") 
 
 elif menu == "Adicionar Filme":
     st.subheader("Adicionar filme")
     titulo = st.text_input("titulo do Filme")       
     genero = st.text_input("Gênero")
-    ano = st.number_input("Ano de lançamento", mi_value=1900, max_vali=2100, stp=1)
+    ano = st.number_input("Ano de lançamento", min_value=1900, max_value=2100, step=1)
     avaliacao = st.number_input("Avalição de (0 a 10)", min_value=0, max_value=10, step=1)
 
     if st.button("Salvar filme"):
         params = {"titulo": titulo, "genero": genero, "ano": ano, "avaliacao": avaliacao}
-        response = requests.post(f"(API_URL)/filmes",params=params)
+        response = requests.post(f"{API_URL}/filmes",params=params)
         if response.status_code ==200:
             st.success("Filme adicionado com sucesso")
         else:
             st.error("Erro ao adicionar filme!")
+

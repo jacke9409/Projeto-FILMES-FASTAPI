@@ -6,7 +6,7 @@ def criar_tabela():
         try:
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS movies (
-                    id SERIAL PRIMARY KEY ,
+                    id SERIAL PRIMARY KEY,
                     titulo TEXT NOT NULL,
                     genero TEXT NOT NULL,
                     ano INTEGER NOT NULL,
@@ -36,11 +36,10 @@ def criar_filme(titulo, genero, ano, avaliacao):
                 
             cursor.close()
             conexao.close()
-criar_filme("Avatar", "Ação", 2009,10.0)
-criar_filme("coraline", "Misterio", 2009,10.0)
 
 
-def listar_movies(id_aluno):
+
+def listar_movies():
     conexao, cursor = conectar()
     if conexao:
         try:
@@ -54,7 +53,6 @@ def listar_movies(id_aluno):
         finally:
                 cursor.close()
                 conexao.close()
-# def listar_filmes():
 
 def atualizar_movies(id_filme, nova_avaliacao):
     conexao, cursor = conectar()
@@ -85,8 +83,7 @@ def deletar_filme(id):
         finally:
                 cursor.close()
                 conexao.close()
-deletar_filme(1)
-                
+
 # Buscar filme por ID
 def buscar_filme_por_id(id):
     conexao, cursor = conectar()
