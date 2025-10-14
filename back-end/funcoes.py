@@ -85,7 +85,7 @@ def deletar_filme(id):
                 conexao.close()
 
 # Buscar filme por ID
-def buscar_filme_por_id(id):
+def buscar_filme(id):
     conexao, cursor = conectar()
     if conexao:
         try:
